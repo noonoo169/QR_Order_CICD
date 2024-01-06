@@ -119,7 +119,7 @@ public class AuthController {
         }
         try {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            if (currentTime.before(user.getCodeExpiration())) {
+            if (currentTime.after(user.getCodeExpiration())) {
                 return new ResponseEntity<>("The verification code has been expired", HttpStatus.CONFLICT);
             }
             if (!user.getResetPasswordCode().equals(forgetPasswordRequestDTO.getResetPasswordCode())) {
